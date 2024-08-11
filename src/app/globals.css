@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  background-color: white;
+}
+
+.login-bg {
+  background-image: url("/img/bg-login.png");
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.transition-from-large {
+  transition: all 0.25s ease;
+}
+
+.transition-from-small {
+  transition: margin 0.23s ease;
+  transition: font-size 0.23s ease;
+  transition-delay: 0.07s;
+}
+
+.card-shadow {
+  box-shadow: 0px 2px 10px 0px #a3acc040;
+}
+
+.ant-picker-calendar-date-content {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Custom Scroll Bar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  background-color: transparent !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(201, 201, 201, 0.1) !important;
+  border-radius: 8px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(201, 201, 201, 0.3) !important;
+}
+
+/* GENERAL STYLES */
+.visuallyHidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.container-menu {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hamburger {
+  width: 40px;
+  height: 30px;
+  position: relative;
+  margin-right: auto;
+}
+
+.hamburger .bar {
+  padding: 0;
+  width: 40px;
+  height: 4px;
+  background-color: #ffff;
+  display: block;
+  border-radius: 4px;
+  transition: all 0.4s ease-in-out;
+  position: absolute;
+}
+
+.bar1 {
+  top: 0;
+}
+
+.bar2,
+.bar3 {
+  top: 13.5px;
+}
+
+.bar3 {
+  right: 0;
+}
+
+.bar4 {
+  bottom: 0;
+}
+
+/* HAMBURGER 1 */
+.hamburger1.active > .bar1 {
+  transform: rotate(45deg);
+  transform-origin: 5%;
+  width: 41px;
+}
+
+.hamburger1.active > .bar2 {
+  transform: translateX(-40px);
+  background-color: transparent;
+}
+
+.hamburger1.active > .bar3 {
+  transform: translateX(40px);
+  background-color: transparent;
+}
+
+.hamburger1.active > .bar4 {
+  transform-origin: 5%;
+  transform: rotate(-45deg);
+  width: 41px;
+}
+
+.swal2-container {
+  z-index: 9999;
+}
+
+.css-10o2lyd-MuiStack-root {
+  padding-top: 0;
+}
+
+/* Apex Chart */
+.content-area {
+  max-width: 1070px;
+  margin: 0 auto;
+}
+
+#topnav {
+  background: #37474f;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+}
+
+.admin-menu {
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  flex: 0.05 0 0;
+}
+
+.search-bar {
+  flex: 2 0 0;
+  align-items: center;
+  justify-content: space-between;
+  background: #232e34;
+  overflow: hidden;
+  display: flex;
+  height: 36px;
+  border-radius: 35px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-bar-dropdown {
+  flex: 1 0 0;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 18px;
+  margin-right: 15px;
+  background: #2c393f;
+}
+.search-bar-input {
+  flex: 2 0 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 18px;
+  line-height: 40px;
+  align-items: center;
+}
+
+.search-bar-input input[type="text"] {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+.search-bar-input input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 760px) {
+  #topnav {
+    flex-wrap: wrap;
+  }
+  .admin-menu {
+    flex-basis: 20%;
+  }
+  .logo {
+    justify-content: flex-end;
+    padding-right: 10px;
+  }
+  .logo {
+    flex-basis: 80%;
+  }
+  .topnav-rightmenu,
+  .search-bar {
+    display: none;
+  }
+}
+
+/* icon expand table */
+
+.icon-rotate {
+  transition: transform 0.3s ease;
+}
+
+.icon-rotate.rotate-up {
+  transform: rotate(180deg);
+}
+
+.edit-image > .ant-upload-wrapper > .ant-upload-list.ant-upload-list-picture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.my-select-container .ant-select .ant-select-selector {
+  /* border-radius:100px; */
+  text-align: center;
+}
