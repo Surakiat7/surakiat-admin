@@ -365,24 +365,24 @@ export default function ManageBlogParam({}: Props) {
           <div className="flex flex-col w-full gap-4 justify-start sm:pt-4">
             <div className="flex w-full flex-col gap-2">
               <label className="text-white text-[14px] text-start font-semibold">
-                ชื่อหัวข้อข่าว<span className="text-[#f43f5e]"> *</span>
+                Title Blog<span className="text-[#f43f5e]"> *</span>
               </label>
               <Input
                 className="w-full"
                 size="large"
-                placeholder="ชื่อหัวข้อข่าว"
+                placeholder="Title Blog"
                 value={Titlename}
                 onChange={(event) => setTitleName(event.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-white text-[14px] text-start font-semibold">
-                รายละเอียด
+                Description
               </label>
               <Input.TextArea
                 className="w-full"
                 size="large"
-                placeholder="รายละเอียด"
+                placeholder="Description"
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
                 rows={4}
