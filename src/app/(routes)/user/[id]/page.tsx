@@ -103,7 +103,7 @@ export default function EditUserByID({}: Props) {
       console.log("Response:", response);
 
       SwalCenter("อัปเดตข้อมูลผู้ใช้", "success", undefined, () =>
-        navigation.ManageUser()
+        navigation.User()
       );
     } catch (error: any) {
       const messageTh = error?.messageTh || "An error occurred";

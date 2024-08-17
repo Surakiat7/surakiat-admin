@@ -227,7 +227,7 @@ export default function ManageBlogParam({}: Props) {
       console.log("Response:", response);
 
       SwalCenter(response.data.messageTH, "success", undefined, () =>
-        navigation.ManageBlog()
+        navigation.Blog()
       );
     } catch (error: any) {
       SwalCenter(error.data.message_th, "error", undefined, undefined);
