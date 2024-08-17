@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Input, Space } from "antd";
+import { Input } from "antd";
 import { useAuth } from "@/contexts/authContext";
 import ButtonSubmit from "@/components/Button/ButtonSubmit";
 
@@ -51,13 +50,15 @@ export default function LoginPage({}: Props) {
     }
   };
 
+  const isSubmitDisabled = !email || !password || !!emailError || !!passwordError;
+
   return (
     <main className="w-full flex sm:flex-col h-screen gap-24 sm:gap-4 sm:py-24 px-24 sm:px-8 bg-[#010b19]">
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-fit p-8 bg-[#010b19] border rounded-2xl flex flex-col items-center gap-6">
           <div className="flex flex-col sm:w-full gap-4 items-center">
             <img
-              src="/Surakiat-DarkBG.avif"
+              src="/Surakiat-WhiteBG.avif"
               alt="Logo-Surakiat"
               className="max-w-40"
             />
@@ -111,7 +112,11 @@ export default function LoginPage({}: Props) {
               )}
             </div>
             <div className="flex w-full">
-              <ButtonSubmit handleSubmit={handleLogin} title="เข้าสู่ระบบ" />
+              <ButtonSubmit
+                handleSubmit={handleLogin}
+                title="Sign In"
+                disabled={isSubmitDisabled} 
+              />
             </div>
           </form>
         </div>

@@ -4,9 +4,10 @@ import { Flex, Spin, Button } from 'antd';
 interface ButtonSubmitProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   title: string;
+  disabled: boolean;
 }
 
-const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ handleSubmit, title }) => {
+const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ handleSubmit, title, disabled }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,7 +29,7 @@ const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ handleSubmit, title }) => {
       className={`flex justify-center items-center gap-2 overflow-hidden rounded-xl w-full py-6 font-semibold
          text-white bg-[#4EDFE7]`}
       onClick={handleClick}
-      disabled={isLoading}
+      disabled={disabled || isLoading}
     >
       <span className="text-center">{title}</span>
       {isLoading && (

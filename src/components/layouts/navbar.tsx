@@ -339,7 +339,7 @@ export default function Navbar({ children }: Props) {
                       : 'text-[0px] transition-from-large text-[#e11d48]'
                   }`}
                 >
-                  {'Logout'}
+                  {'Sign Out'}
                 </Typography.Text>
               </div>
             </Button>
