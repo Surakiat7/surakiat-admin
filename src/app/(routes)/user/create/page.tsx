@@ -119,12 +119,12 @@ export default function CreateUserPage({}: Props) {
             <div className="flex gap-2 w-full">
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  อีเมล<span className="text-[#f43f5e]"> *</span>
+                  Email<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   value={email}
                   onChange={handleEmailChange}
-                  placeholder="อีเมล"
+                  placeholder="Email"
                   className="w-full"
                   size="large"
                 />
@@ -136,7 +136,7 @@ export default function CreateUserPage({}: Props) {
               </div>
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  รหัสผ่าน<span className="text-[#f43f5e]"> *</span>
+                  Password<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input.Password
                   value={password}
@@ -145,7 +145,7 @@ export default function CreateUserPage({}: Props) {
                     onVisibleChange: setPasswordVisible,
                   }}
                   onChange={handlePasswordChange}
-                  placeholder="รหัสผ่าน"
+                  placeholder="Password"
                   type="password"
                   className="w-full"
                   size="large"

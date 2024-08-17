@@ -124,24 +124,24 @@ export default function EditUserByID({}: Props) {
             <div className="flex gap-2 w-full">
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  ชื่อ<span className="text-[#f43f5e]"> *</span>
+                  Firstname<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   className="w-full"
                   size="large"
-                  placeholder="ชื่อ"
+                  placeholder="Firstname"
                   value={fname}
                   onChange={(event) => setFname(event.target.value)}
                 />
               </div>
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  นามสกุล<span className="text-[#f43f5e]"> *</span>
+                  Lastname<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   className="w-full"
                   size="large"
-                  placeholder="นามสกุล"
+                  placeholder="Lastname"
                   value={lname}
                   onChange={(event) => setLname(event.target.value)}
                 />
@@ -150,12 +150,12 @@ export default function EditUserByID({}: Props) {
             <div className="flex gap-2 w-full">
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  อีเมล<span className="text-[#f43f5e]"> *</span>
+                  Email<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   value={email}
                   onChange={handleEmailChange}
-                  placeholder="อีเมล"
+                  placeholder="Email"
                   className="w-full"
                   size="large"
                 />
@@ -167,7 +167,7 @@ export default function EditUserByID({}: Props) {
               </div>
               <div className="flex w-full flex-col gap-2">
                 <label className="text-white text-[14px] text-start font-semibold">
-                  รหัสผ่าน<span className="text-[#f43f5e]"> *</span>
+                  Password<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input.Password
                   value={password}
@@ -176,7 +176,7 @@ export default function EditUserByID({}: Props) {
                     onVisibleChange: setPasswordVisible,
                   }}
                   onChange={handlePasswordChange}
-                  placeholder="รหัสผ่าน"
+                  placeholder="Password"
                   type="password"
                   className="w-full"
                   size="large"
@@ -191,8 +191,8 @@ export default function EditUserByID({}: Props) {
           </div>
           <div className="w-full sm:flex">
             <Space>
-              <Button size="large" onClick={handleCancel}>
-                ยกเลิก
+              <Button danger size="large" onClick={handleCancel}>
+                Cancel
               </Button>
               <Button
                 onClick={handleUpdate}
@@ -200,7 +200,7 @@ export default function EditUserByID({}: Props) {
                 type="primary"
                 disabled={!fname || !lname}
               >
-                ยืนยัน
+                Submit
               </Button>
             </Space>
           </div>
