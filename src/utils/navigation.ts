@@ -14,35 +14,26 @@ export const useNavigate = () => {
     Login: async () => {
       await router.push(`/login`);
     },
-    ManageSong: async () => {
-      await router.push(`/managesong`);
+    Blog: async () => {
+      await router.push(`/blog`);
     },
-    ManageSongEdit: async (id: string | number) => {
-      await router.push(`/managesong/${id}`);
+    BlogEdit: async (id: string | number) => {
+      await router.push(`/blog/${id}`);
     },
-    ManageSongCreate: async () => {
-      await router.push(`/managesong/create`);
+    BlogCreate: async () => {
+      await router.push(`/blog/create`);
     },
     Overview: async () => {
       await router.push(`/overview`);
     },
-    ManageUser: async () => {
-      await router.push(`/manageuser`);
+    User: async () => {
+      await router.push(`/user`);
     },
-    ManageUserCreate: async () => {
-      await router.push(`/manageuser/create`);
+    UserCreate: async () => {
+      await router.push(`/user/create`);
     },
-    ManageUserEdit: async (id: string | number) => {
-      await router.push(`/manageuser/${id}`);
-    },
-    ManageCategory: async () => {
-      await router.push(`/managecategory`);
-    },
-    ManageCategoryCreate: async (id: string | number) => {
-      await router.push(`/managecategory/create/${id}`);
-    },
-    ManageCategoryEdit: async (id: string | number) => {
-      await router.push(`/managecategory/${id}`);
+    UserEdit: async (id: string | number) => {
+      await router.push(`/user/${id}`);
     },
   };
 };

@@ -39,8 +39,8 @@ export type CreateCategorySongFormValues = {
 };
 
 export type CreateUserFormValues = {
-  fname: string;
-  lname: string;
+  fristname: string;
+  lastname: string;
   email: string;
   password: string;
 };

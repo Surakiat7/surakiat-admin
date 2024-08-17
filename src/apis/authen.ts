@@ -15,7 +15,7 @@ export const AuthenApi = {
       }
 
       try {
-         const response = await axios.post(`${apiEndPoint}/api/v/auth/login`, body)
+         const response = await axios.post(`${apiEndPoint}/api/v1/auth/email/login`, body)
          return response
       } catch (error: any) {
          throw error.response
@@ -24,7 +24,7 @@ export const AuthenApi = {
 
    getUser: async (): Promise<AxiosResponse<ApiResponse>> => {
       try {
-         const response = await axiosAuthen.get(`${apiEndPoint}/api/v/auth/validate`)
+         const response = await axiosAuthen.get(`${apiEndPoint}/api/v1/auth/profile`)
          return response
       } catch (error: any) {
          throw error.response
@@ -34,7 +34,7 @@ export const AuthenApi = {
    refreshToken: async (): Promise<RefreshTokenResponse> => {
       const refreshToken = await getRefreshToken()
       try {
-         const response = await axios.post(`${apiEndPoint}/api/v/auth/refresh`, { refreshToken })
+         const response = await axios.post(`${apiEndPoint}/api/v1/auth/refresh`, { refreshToken })
          const accessToken = response.data.data.accessToken
          await setAccessToken(accessToken)
          return accessToken

@@ -23,7 +23,7 @@ export default function LoginPage({}: Props) {
     const value = e.target.value;
     setEmail(value);
     if (value && !validateEmail(value)) {
-      setEmailError("กรุณากรอกอีเมลให้ถูกต้อง");
+      setEmailError("Please enter a valid email address.");
     } else {
       setEmailError("");
     }
@@ -33,7 +33,7 @@ export default function LoginPage({}: Props) {
     const value = e.target.value;
     setPassword(value);
     if (value && value.length < 8) {
-      setPasswordError("กรุณากรอกรหัสผ่านขั้นต่ำ 8 ตัว");
+      setPasswordError("Please enter a password with a minimum of 8 characters.");
     } else {
       setPasswordError("");
     }
@@ -52,9 +52,9 @@ export default function LoginPage({}: Props) {
   };
 
   return (
-    <main className="w-full flex sm:flex-col h-screen gap-24 sm:gap-4 sm:py-24 px-24 sm:px-8 bg-gradient-to-br from-[#4EDFE7] to-[#00597B]">
+    <main className="w-full flex sm:flex-col h-screen gap-24 sm:gap-4 sm:py-24 px-24 sm:px-8 bg-[#010b19]">
       <div className="w-full h-full flex items-center justify-center">
-        <div className="w-fit p-8 bg-white rounded-2xl flex flex-col items-center gap-6">
+        <div className="w-fit p-8 bg-[#010b19] border rounded-2xl flex flex-col items-center gap-6">
           <div className="flex flex-col sm:w-full gap-4 items-center">
             <img
               src="/Surakiat-DarkBG.avif"
@@ -62,18 +62,18 @@ export default function LoginPage({}: Props) {
               className="max-w-40"
             />
             <div className="login-head flex flex-col gap-2 items-center">
-              <h1 className="text-center text-[#383A48] font-bold text-[24px] sm:text-[18px]">
+              <h1 className="text-center text-[#4EDFE7] font-bold text-[24px] sm:text-[18px]">
                 Surakiat Adminator
               </h1>
-              <h2 className="text-center text-[#7D7D7D] font-normal text-[24px] sm:text-[18px]">
+              <h2 className="text-center text-white font-normal text-[24px] sm:text-[18px]">
                 Fill out the information completely to log in.
               </h2>
             </div>
           </div>
           <form className="flex flex-col gap-3 w-full" onSubmit={handleLogin}>
             <div className="flex flex-col gap-2 w-full">
-              <label className="text-[#323257] text-[14px] text-start font-semibold">
-                Email<span className="text-[#FD7573]"> *</span>
+              <label className="text-white text-[14px] text-start font-semibold">
+                Email<span className="text-[#f43f5e]"> *</span>
               </label>
               <Input
                 value={email}
@@ -83,14 +83,14 @@ export default function LoginPage({}: Props) {
                 size="large"
               />
               {emailError && email && (
-                <label className="text-[#FD7573] text-[14px] text-start">
+                <label className="text-[#f43f5e] text-[14px] text-start">
                   {emailError}
                 </label>
               )}
             </div>
             <div className="flex flex-col gap-2 w-full">
-              <label className="text-[#323257] text-[14px] text-start font-semibold">
-                Password<span className="text-[#FD7573]"> *</span>
+              <label className="text-white text-[14px] text-start font-semibold">
+                Password<span className="text-[#f43f5e]"> *</span>
               </label>
               <Input.Password
                 value={password}
@@ -105,7 +105,7 @@ export default function LoginPage({}: Props) {
                 size="large"
               />
               {passwordError && password && (
-                <label className="text-[#FD7573] text-[14px] text-start">
+                <label className="text-[#f43f5e] text-[14px] text-start">
                   {passwordError}
                 </label>
               )}

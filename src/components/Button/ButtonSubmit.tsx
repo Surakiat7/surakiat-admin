@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Flex, Spin, Button } from "antd";
+import React, { useState } from 'react';
+import { Flex, Spin, Button } from 'antd';
 
 interface ButtonSubmitProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -15,7 +15,7 @@ const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ handleSubmit, title }) => {
     try {
       await handleSubmit(event as unknown as React.FormEvent<HTMLFormElement>);
     } catch (error) {
-      console.error("Submit error:", error);
+      console.error('Submit error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -25,10 +25,8 @@ const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ handleSubmit, title }) => {
     <Button
       aria-label="Submit button"
       id="submit-button"
-      className={`
-        relative z-0 flex justify-center items-center gap-2 overflow-hidden rounded-xl w-full py-6 font-semibold
-         text-white transition-all duration-500
-       bg-gradient-to-br from-[#4EDFE7] to-[#00597B]`}
+      className={`flex justify-center items-center gap-2 overflow-hidden rounded-xl w-full py-6 font-semibold
+         text-white bg-[#4EDFE7]`}
       onClick={handleClick}
       disabled={isLoading}
     >

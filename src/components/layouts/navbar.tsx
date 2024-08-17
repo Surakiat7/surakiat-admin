@@ -1,17 +1,17 @@
-import { buddhistDay } from "@/const/day";
-import { useNavigate } from "@/utils/navigation";
-import { Button, Collapse, Menu, Typography, Tooltip } from "antd";
-import { CaretUpOutlined } from "@ant-design/icons";
-import { SignOut, CalendarBlank } from "@phosphor-icons/react";
-import { usePathname, useParams } from "next/navigation";
-import React, { Fragment, useEffect, useState } from "react";
-import { useAuth } from "@/contexts/authContext";
-import Loading from "@/components/loading";
-import HamburgerMenu from "./hamburger";
-import { PiMusicNoteFill } from "react-icons/pi";
-import { TbCategoryPlus } from "react-icons/tb";
-import { FaRegUser } from "react-icons/fa";
-import { LuBarChartHorizontal } from "react-icons/lu";
+import { buddhistDay } from '@/const/day';
+import { useNavigate } from '@/utils/navigation';
+import { Button, Collapse, Menu, Typography, Tooltip } from 'antd';
+import { CaretUpOutlined } from '@ant-design/icons';
+import { SignOut, CalendarBlank } from '@phosphor-icons/react';
+import { usePathname, useParams } from 'next/navigation';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/authContext';
+import Loading from '@/components/loading';
+import HamburgerMenu from './hamburger';
+import { format } from 'date-fns';
+import { FaRegUser } from 'react-icons/fa';
+import { LuBarChartHorizontal } from 'react-icons/lu';
+import { RiBloggerLine } from "react-icons/ri";
 
 type Props = {
   children: React.ReactNode;
@@ -45,67 +45,54 @@ export default function Navbar({ children }: Props) {
   const [isChangingPage, setIsChangingPage] = useState(false);
   const { logout, userProfile } = useAuth();
   const { mobileScreen } = useAuth();
+  const todayDate = format(new Date(), 'dd MMMM yyyy');
 
   const handleSidebarOpen = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  console.log("userProfile:", userProfile);
-
   let HeadetTitle: { title?: string; desc?: string } = {};
   switch (pathname) {
-    case "/managesong":
+    case '/blog':
       HeadetTitle = {
-        title: "รายการเพลงในระบบ",
-        desc: "ค้นหารายการเพลงในระบบ เพิ่ม ลบ และแก้ไข",
+        title: 'List of Blogs Management',
+        desc: 'Search, add, delete, and edit blogs in the system.',
       };
       break;
-    case "/managesong/create":
+    case '/blog/create':
       HeadetTitle = {
-        title: "เพิ่มรายการเพลงในระบบ",
-        desc: "อัปโหลดหรือกรอกรายละเอียดให้ครบถูกต้อง",
+        title: 'Create Blogs',
+        desc: 'Upload or fill in all details accurately.',
       };
       break;
-    case `/managesong/${id}`:
+    case `/blog/${id}`:
       HeadetTitle = {
-        title: "แก้ไขรายการเพลงในระบบ",
-        desc: "กรอกรายละเอียดให้ครบถูกต้อง",
+        title: 'Edit Blogs',
+        desc: 'Upload or fill in all details accurately.',
       };
       break;
-    case "/managecategory":
+    case '/user':
       HeadetTitle = {
-        title: "รายการหมวดหมู่ค่ายเพลงในระบบ",
-        desc: "ค้นหารายการหมวดหมู่ค่ายเพลงในระบบ เพิ่ม ลบ และแก้ไข",
+        title: 'User Account Management',
+        desc: 'Search, add, delete, and edit users in the system.',
       };
       break;
-    case "/managecategory/create":
+    case '/user/create':
       HeadetTitle = {
-        title: "เพิ่มหมวดหมู่ค่ายเพลงในระบบ",
-        desc: "กรอกรายละเอียดให้ครบถูกต้อง",
+        title: 'Create User Account',
+        desc: 'Fill in all details accurately.',
       };
       break;
-    case "/manageuser":
+    case `/user/${id}`:
       HeadetTitle = {
-        title: "จัดการบัญชีผู้ใช้งานในะบบ",
-        desc: "ค้นหาบัญชีผู้ใช้งานในระบบ เพิ่ม ลบ และแก้ไข",
+        title: 'Edit User Account',
+        desc: 'Fill in all details accurately.',
       };
       break;
-    case "/manageuser/create":
+    case '/overview':
       HeadetTitle = {
-        title: "เพิ่มบัญชีผู้ใช้งานในะบบ",
-        desc: "กรอกรายละเอียดให้ครบถูกต้อง",
-      };
-      break;
-    case `/manageuser/${id}`:
-      HeadetTitle = {
-        title: "แก้ไขบัญชีผู้ใช้งานในะบบ",
-        desc: "กรอกรายละเอียดให้ครบถูกต้อง",
-      };
-      break;
-    case "/overview":
-      HeadetTitle = {
-        title: "รายงานสถิติในระบบ",
-        desc: "ดูรายงานสถิติคำค้นหาที่มากที่สุดทั้งประเทศ",
+        title: 'Dashboard Overview',
+        desc: 'View various statistical reports in the system.',
       };
       break;
     default:
@@ -114,31 +101,24 @@ export default function Navbar({ children }: Props) {
 
   const MenuList: MenuItem[] = [
     {
-      name: "รายงานสถิติ",
+      name: 'Overview',
       icon: <LuBarChartHorizontal size={24} />,
-      path: "/overview",
+      path: '/overview',
       navigate: () => navigateWithDelay(navigateTo.Overview, setIsChangingPage),
     },
     {
-      name: "จัดการเพลง",
-      icon: <PiMusicNoteFill size={24} />,
-      path: "/managesong",
+      name: 'Blogs',
+      icon: <RiBloggerLine size={24} />,
+      path: '/blog',
       navigate: () =>
-        navigateWithDelay(navigateTo.ManageSong, setIsChangingPage),
+        navigateWithDelay(navigateTo.Blog, setIsChangingPage),
     },
     {
-      name: "จัดการหมวดหมู่เพลง",
-      icon: <TbCategoryPlus size={24} />,
-      path: "/managecategory",
-      navigate: () =>
-        navigateWithDelay(navigateTo.ManageCategory, setIsChangingPage),
-    },
-    {
-      name: "จัดการบัญชีผู้ใช้",
+      name: 'User Account',
       icon: <FaRegUser size={24} />,
-      path: "/manageuser",
+      path: '/user',
       navigate: () =>
-        navigateWithDelay(navigateTo.ManageUser, setIsChangingPage),
+        navigateWithDelay(navigateTo.User, setIsChangingPage),
     },
   ];
 
@@ -170,10 +150,10 @@ export default function Navbar({ children }: Props) {
   return (
     <>
       <div
-        className={`fixed h-screen sm:h-[calc(100vh-80px)] w-full gap-4 z-49 py-6 bg-[#F8F8F8] box-border flex flex-col justify-between transition-all duration-300 top-0 sm:top-20 sm:w-full ${
+        className={`fixed h-screen sm:h-[calc(100vh-80px)] w-full gap-4 z-49 py-6 bg-[#010b19] border-r box-border flex flex-col justify-between transition-all duration-300 top-0 sm:top-20 sm:w-full ${
           isSidebarOpen
-            ? "xl:max-w-[276px] md:max-w-[276px] sm:max-w-full block px-6 z-49"
-            : "max-w-[72px] sm:hidden px-3"
+            ? 'xl:max-w-[276px] md:max-w-[276px] sm:max-w-full block px-6 z-49'
+            : 'max-w-[72px] sm:hidden px-3'
         }`}
       >
         <div
@@ -181,14 +161,14 @@ export default function Navbar({ children }: Props) {
         >
           <div
             className={`flex flex-col mt-[10px] gap-4 items-center cursor-pointer transition-all duration-300 ${
-              !isSidebarOpen ? "h-8" : "h-min"
+              !isSidebarOpen ? 'h-12' : 'h-min'
             }`}
             onClick={handleSidebarOpen}
           >
             <img
-              src={"/logo-echo-rmbg.png"}
+              src={'/Surakiat-WhiteBG.avif'}
               alt="icon"
-              className="w-full max-w-60 h-fit transition-all duration-300"
+              className="w-full max-w-24 h-fit transition-all duration-300"
             />
           </div>
           <div className="flex flex-col gap-2 items-center w-full flex-grow custom-scrollbar overflow-x-hidden">
@@ -204,7 +184,7 @@ export default function Navbar({ children }: Props) {
                     >
                       <Button
                         type={
-                          pathname.includes(menu.path) ? "primary" : "default"
+                          pathname.includes(menu.path) ? 'primary' : 'default'
                         }
                         size="large"
                         onClick={() => {
@@ -218,8 +198,8 @@ export default function Navbar({ children }: Props) {
                         }}
                         block={isSidebarOpen}
                         className={`flex flex-row items-center border-none justify-start transition-all w-full ${
-                          !isSidebarOpen && "p-3 w-fit min-w-0 !justify-center"
-                        } ${menu.subMenu && "justify-between"}`}
+                          !isSidebarOpen && 'p-3 w-fit min-w-0 !justify-center'
+                        } ${menu.subMenu && 'justify-between'}`}
                       >
                         <div className="flex flex-row items-center">
                           {menu.icon}
@@ -244,9 +224,9 @@ export default function Navbar({ children }: Props) {
                         {menu.subMenu && (
                           <CaretUpOutlined
                             className={`${
-                              !listOpenState[menu.name] && "rotate-180"
+                              !listOpenState[menu.name] && 'rotate-180'
                             } transition-all duration-100 ${
-                              !isSidebarOpen && "hidden"
+                              !isSidebarOpen && 'hidden'
                             }`}
                           />
                         )}
@@ -255,7 +235,7 @@ export default function Navbar({ children }: Props) {
                   ) : (
                     <Button
                       type={
-                        pathname.includes(menu.path) ? "primary" : "default"
+                        pathname.includes(menu.path) ? 'primary' : 'default'
                       }
                       size="large"
                       onClick={() => {
@@ -269,8 +249,8 @@ export default function Navbar({ children }: Props) {
                       }}
                       block={isSidebarOpen}
                       className={`flex flex-row items-center border-none justify-start transition-all w-full ${
-                        !isSidebarOpen && "p-3 w-fit min-w-0 !justify-center"
-                      } ${menu.subMenu && "justify-between"}`}
+                        !isSidebarOpen && 'p-3 w-fit min-w-0 !justify-center'
+                      } ${menu.subMenu && 'justify-between'}`}
                     >
                       <div className="flex flex-row items-center">
                         {menu.icon}
@@ -295,9 +275,9 @@ export default function Navbar({ children }: Props) {
                       {menu.subMenu && (
                         <CaretUpOutlined
                           className={`${
-                            !listOpenState[menu.name] && "rotate-180"
+                            !listOpenState[menu.name] && 'rotate-180'
                           } transition-all duration-100 ${
-                            !isSidebarOpen && "hidden"
+                            !isSidebarOpen && 'hidden'
                           }`}
                         />
                       )}
@@ -319,8 +299,8 @@ export default function Navbar({ children }: Props) {
                               }}
                               className={`${
                                 isSidebarOpen
-                                  ? "transition-from-small"
-                                  : "!text-transparent !bg-transparent transition-from-large"
+                                  ? 'transition-from-small'
+                                  : '!text-transparent !bg-transparent transition-from-large'
                               }`}
                             >
                               <Typography.Text>{subMenu.name}</Typography.Text>
@@ -337,7 +317,7 @@ export default function Navbar({ children }: Props) {
         </div>
         <div className={`profile flex flex-col items-center gap-4`}>
           <Tooltip
-            title={!isSidebarOpen ? "ออกจากระบบ" : ""}
+            title={!isSidebarOpen ? 'ออกจากระบบ' : ''}
             placement="right"
             mouseEnterDelay={0.1}
             mouseLeaveDelay={0.1}
@@ -345,21 +325,21 @@ export default function Navbar({ children }: Props) {
             <Button
               size="large"
               block={isSidebarOpen}
-              className={`flex flex-row border border-[#A761F5] items-center justify-start transition-all w-full ${
-                !isSidebarOpen && "px-3 w-fit min-w-0"
+              className={`flex flex-row border border-[#e11d48] items-center justify-start transition-all w-full ${
+                !isSidebarOpen && 'px-3 w-fit min-w-0'
               }`}
               onClick={logout}
             >
               <div className="flex flex-row items-center">
-                <SignOut color="#A761F5" size={24} weight="fill" />
+                <SignOut color="#e11d48" size={24} weight="fill" />
                 <Typography.Text
                   className={`${
                     isSidebarOpen
-                      ? "transition-from-small ml-2 text-[#A761F5]"
-                      : "text-[0px] transition-from-large text-[#A761F5]"
+                      ? 'transition-from-small ml-2 text-[#e11d48]'
+                      : 'text-[0px] transition-from-large text-[#e11d48]'
                   }`}
                 >
-                  {"ออกจากระบบ"}
+                  {'Logout'}
                 </Typography.Text>
               </div>
             </Button>
@@ -367,28 +347,28 @@ export default function Navbar({ children }: Props) {
         </div>
       </div>
       <div
-        className={`navbar bg-gradient-to-r from-[#A761F5] to-[#00E3CA] fixed top-0 right-0 transition-all duration-300 z-50 h-auto sm:h-min ${
+        className={`navbar bg-[#010b19] border-b fixed top-0 right-0 transition-all duration-300 z-50 h-auto sm:h-min ${
           isSidebarOpen
-            ? "xl:left-[276px] lg:left-[276px] md:left-[276px] sm:z-50 sm:left-[0px]"
-            : "xl:left-[72px] lg:left-[72px] md:left-[72px] sm:left-[0px]"
+            ? 'xl:left-[276px] lg:left-[276px] md:left-[276px] sm:z-50 sm:left-[0px]'
+            : 'xl:left-[72px] lg:left-[72px] md:left-[72px] sm:left-[0px]'
         }`}
       >
         <img
-          src={"/img/pattern-left.svg"}
+          src={'/pattern-left.svg'}
           alt="left"
-          className="absolute top-0 left-0"
+          className="absolute sm:hidden top-0 left-0"
         />
         <img
-          src={"/img/pattern-right.svg"}
+          src={'/pattern-right.svg'}
           alt="right"
-          className="absolute bottom-0 right-0"
+          className="absolute sm:hidden bottom-0 right-0"
         />
         <div className="flex justify-between items-center">
           <div
             className={`w-full h-full flex sm:py-6 py-8 sm:gap-4 justify-start items-center sm:items-center text-white z-30 ${
               isSidebarOpen
-                ? "xl:left-[276px] sm:z-50 sm:left-[0px]"
-                : "left-[72px]"
+                ? 'xl:left-[276px] sm:z-50 sm:left-[0px]'
+                : 'left-[72px]'
             }`}
           >
             <div className="flex pl-6 sm:pl-3 pr-3 cursor-pointer">
@@ -410,20 +390,20 @@ export default function Navbar({ children }: Props) {
             <div className="flex gap-4 text-white justify-end">
               <Typography.Text className="flex gap-2 sm:text-sm items-center text-white">
                 <CalendarBlank size={24} />
-                {"วันนี้ "}
-                {buddhistDay().format("DD MMMM BBBB")}
+                {'Today '}
+                {todayDate}
               </Typography.Text>
             </div>
             <Typography.Text
               className={`text-white text-end ${
                 isSidebarOpen
-                  ? "transition-from-small"
-                  : "transition-from-small"
+                  ? 'transition-from-small'
+                  : 'transition-from-small'
               }`}
             >
               {userProfile
-                ? `${userProfile?.fname} ${userProfile?.lname}(${userProfile?.admin_permission})`
-                : "ไม่พบผู้ใช้งาน"}
+                ? `${userProfile?.prefix}${userProfile?.firstname} ${userProfile?.lastname}`
+                : 'ไม่พบผู้ใช้งาน'}
             </Typography.Text>
           </div>
         </div>
@@ -431,13 +411,13 @@ export default function Navbar({ children }: Props) {
       <div
         className={`sm:pt-20 pt-32 transition-all duration-300 h-screen box-border ${
           isSidebarOpen
-            ? "ml-[276px]"
-            : "xl:ml-[72px] lg:ml-[72px] md:ml-[72px]"
+            ? 'ml-[276px]'
+            : 'xl:ml-[72px] lg:ml-[72px] md:ml-[72px]'
         }`}
       >
         <div
           className={`px-8 sm:px-4 py-6 ${
-            isSidebarOpen ? "sm:hidden xl:block lg:block md:block" : "block"
+            isSidebarOpen ? 'sm:hidden xl:block lg:block md:block' : 'block'
           }`}
         >
           {isChangingPage ? <Loading /> : children}

@@ -13,20 +13,17 @@ import {
   Select,
   UploadProps,
 } from "antd";
-import { useParams } from "next/navigation";
 import { SwalCenter } from "@/utils/sweetAlertCenter";
 import Loading from "@/components/loading";
 import { useNavigate } from "@/utils/navigation";
-import { UpdateUser, UserFindByID } from "@/apis/manageuser";
+import { CreateUser } from "@/apis/manageuser";
 
 type Props = {};
 const validateEmail = (value: any) =>
   value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
-export default function EditUserByID({}: Props) {
+export default function CreateUserPage({}: Props) {
   const navigation = useNavigate();
-  const params = useParams();
-  const id = params.id as string;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fname, setFname] = useState<string>("");
   const [lname, setLname] = useState<string>("");
@@ -56,54 +53,21 @@ export default function EditUserByID({}: Props) {
     }
   };
 
-  const handleCancel = () => {
-    navigation.Back();
-  };
-
-  const FindSongDataById = async (id: string) => {
-    setIsLoading(true);
-    try {
-      const response = await UserFindByID(id);
-      console.log("API response:", response);
-      const data = response.data;
-
-      if (data) {
-        setFname(data.fname || "");
-        setLname(data.lname || "");
-        setEmail(data.email || "");
-      } else {
-        console.error("No data found");
-      }
-    } catch (error) {
-      console.error("Error fetching song:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (id) {
-      FindSongDataById(id);
-    }
-  }, [id]);
-
-  const handleUpdate = async () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     try {
       const body = {
-        fname,
-        lname,
         email,
         password,
-        statususer: "Active",
-        permission: "Admin",
+        fname,
+        lname,
       };
-
-      const response = await UpdateUser(id, body);
+  
+      const response = await CreateUser(body);
       console.log("Response:", response);
-
-      SwalCenter("อัปเดตข้อมูลผู้ใช้", "success", undefined, () =>
-        navigation.ManageUser()
+  
+      SwalCenter(response.data.messageTh, "success", undefined, () =>
+        navigation.User()
       );
     } catch (error: any) {
       const messageTh = error?.messageTh || "An error occurred";
@@ -112,6 +76,11 @@ export default function EditUserByID({}: Props) {
     } finally {
       setIsLoading(false);
     }
+  };
+  
+
+  const handleCancel = () => {
+    navigation.Back();
   };
 
   return (
@@ -123,25 +92,25 @@ export default function EditUserByID({}: Props) {
           <div className="flex flex-col w-full gap-4 justify-start">
             <div className="flex gap-2 w-full">
               <div className="flex w-full flex-col gap-2">
-                <label className="text-[#323257] text-[14px] text-start font-semibold">
-                  ชื่อ<span className="text-[#FD7573]"> *</span>
+                <label className="text-white text-[14px] text-start font-semibold">
+                  Firstname<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   className="w-full"
                   size="large"
-                  placeholder="ชื่อ"
+                  placeholder="Firstname"
                   value={fname}
                   onChange={(event) => setFname(event.target.value)}
                 />
               </div>
               <div className="flex w-full flex-col gap-2">
-                <label className="text-[#323257] text-[14px] text-start font-semibold">
-                  นามสกุล<span className="text-[#FD7573]"> *</span>
+                <label className="text-white text-[14px] text-start font-semibold">
+                  Lastname<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   className="w-full"
                   size="large"
-                  placeholder="นามสกุล"
+                  placeholder="Lastname"
                   value={lname}
                   onChange={(event) => setLname(event.target.value)}
                 />
@@ -149,8 +118,8 @@ export default function EditUserByID({}: Props) {
             </div>
             <div className="flex gap-2 w-full">
               <div className="flex w-full flex-col gap-2">
-                <label className="text-[#323257] text-[14px] text-start font-semibold">
-                  อีเมล<span className="text-[#FD7573]"> *</span>
+                <label className="text-white text-[14px] text-start font-semibold">
+                  อีเมล<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input
                   value={email}
@@ -160,14 +129,14 @@ export default function EditUserByID({}: Props) {
                   size="large"
                 />
                 {emailError && email && (
-                  <label className="text-[#FD7573] text-[14px] text-start">
+                  <label className="text-[#f43f5e] text-[14px] text-start">
                     {emailError}
                   </label>
                 )}
               </div>
               <div className="flex w-full flex-col gap-2">
-                <label className="text-[#323257] text-[14px] text-start font-semibold">
-                  รหัสผ่าน<span className="text-[#FD7573]"> *</span>
+                <label className="text-white text-[14px] text-start font-semibold">
+                  รหัสผ่าน<span className="text-[#f43f5e]"> *</span>
                 </label>
                 <Input.Password
                   value={password}
@@ -182,7 +151,7 @@ export default function EditUserByID({}: Props) {
                   size="large"
                 />
                 {passwordError && password && (
-                  <label className="text-[#FD7573] text-[14px] text-start">
+                  <label className="text-[#f43f5e] text-[14px] text-start">
                     {passwordError}
                   </label>
                 )}
@@ -191,16 +160,16 @@ export default function EditUserByID({}: Props) {
           </div>
           <div className="w-full sm:flex">
             <Space>
-              <Button size="large" onClick={handleCancel}>
-                ยกเลิก
+              <Button danger size="large" onClick={handleCancel}>
+                Cancel
               </Button>
               <Button
-                onClick={handleUpdate}
                 size="large"
                 type="primary"
-                disabled={!fname || !lname}
+                disabled={!fname || !lname || !email || !password}
+                onClick={handleSubmit}
               >
-                ยืนยัน
+                Submit
               </Button>
             </Space>
           </div>

@@ -1,14 +1,14 @@
 "use client";
 
-import SongsTable from "@/components/table/ManageSongTable";
+import BlogsTable from "@/components/table/BlogTable";
 import React from "react";
 
 type Props = {};
 
-export default function ManageSong({}: Props) {
+export default function Blog({}: Props) {
   return (
     <main className="w-full flex flex-col">
-      <SongsTable />
+      <BlogsTable />
     </main>
   );
 }

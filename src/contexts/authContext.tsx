@@ -37,9 +37,10 @@ type UserProfile = {
   tel: string;
   role: string;
   level: number;
-  fname: string;
+  firstname: string;
+  prefix: string;
   admin_permission: string;
-  lname: string;
+  lastname: string;
 };
 
 type AuthContextValue = {
@@ -86,14 +87,14 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const getUser = async () => {
     setIsLoading(true);
-    setLoadingLabel("กำลังดึงข้อมูลผู้ใช้");
+    setLoadingLabel("Loading user data");
     try {
       const userResponse = await AuthenApi.getUser();
       setUserProfile(userResponse.data.data);
       console.log("userResponse:", userResponse);
       setUserExist(true);
     } catch (error: any) {
-      SwalCenter("ไม่พบข้อมูลผู้ใช้งาน", "error", "", () => navigateTo.Login());
+      // SwalCenter("User not found", "error", "", () => navigateTo.Login());
       navigateTo.Login();
       setUserExist(false);
     } finally {
@@ -103,7 +104,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
-    setLoadingLabel("กำลังเข้าสู่ระบบ");
+    setLoadingLabel("loading login");
     try {
       const loginResponse = await AuthenApi.login(email, password);
       if (loginResponse.status === 200) {
@@ -115,8 +116,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         await setRefreshCookie(refreshToken);
         console.log("seccess login");
 
-        SwalCenter("เข้าสู่ระบบสำเร็จ", "success", undefined, undefined, () =>
-          navigateTo.ManageSong()
+        SwalCenter("Login successful", "success", undefined, undefined, () =>
+          navigateTo.Blog()
         );
       }
     } catch (error: any) {
@@ -132,50 +133,50 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       await removeAccessToken();
       await removeRefreshToken();
       SwalCenter(
-        "ออกจากระบบสำเร็จ",
+        "Logout successful",
         "success",
-        "ระบบกำลังพาคุณไปที่หน้าเข้าสู่ระบบ",
+        "The system is redirecting you to the login page.",
         () => navigateTo.Login()
       );
     } catch (error) {
-      SwalCenter("ออกจากระบบไม่สำเร็จ", "error");
+      SwalCenter("Logout failed", "error");
     }
   };
 
-  // useEffect(() => {
-  //   setIsLoading(false);
-  // }, [pathname]);
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
 
-  // // // เช็คว่า authen มั้ยทุกครั้งที่ pathname หรือ user เปลี่ยน
-  // useEffect(() => {
-  //   // NOTE: authen test
-  //   isUserAuthenticated();
-  // }, [pathname, userExist]);
+  // // เช็คว่า authen มั้ยทุกครั้งที่ pathname หรือ user เปลี่ยน
+  useEffect(() => {
+    // NOTE: authen test
+    isUserAuthenticated();
+  }, [pathname, userExist]);
 
-  // // เช็คว่ามี user มั้ยทุกครั้งที่ accesstoken เปลี่ยน
-  // useEffect(() => {
-  //   getUser();
-  // }, [accessToken]);
+  // เช็คว่ามี user มั้ยทุกครั้งที่ accesstoken เปลี่ยน
+  useEffect(() => {
+    getUser();
+  }, [accessToken]);
 
-  // // // เช็ค authen
-  // const isUserAuthenticated = async () => {
-  //   // ถ้ามี token + มี user มั้ย ถ้ามี ทำ fn นี้
-  //   if ((await getAccessToken()) && userExist) {
-  //     redirectToLogin();
-  //   } else redirectToLogin();
-  // };
+  // // เช็ค authen
+  const isUserAuthenticated = async () => {
+    // ถ้ามี token + มี user มั้ย ถ้ามี ทำ fn นี้
+    if ((await getAccessToken()) && userExist) {
+      redirectToBlog();
+    } else redirectToLogin();
+  };
 
-  // // ถ้าไปหน้าที่ไม่มีคำว่า login จะเด้งไปหน้า login
-  // const redirectToLogin = () => {
-  //   if (!pathname.includes("login")) navigateTo.ManageSong();
-  // };
+  // ถ้าไปหน้าที่ไม่มีคำว่า login จะเด้งไปหน้า login
+  const redirectToLogin = () => {
+    if (!pathname.includes("login")) navigateTo.Blog();
+  };
 
-  // // ถ้าไปหน้าที่มีคำว่า login จะไปหน้า Overview
-  // const redirectToManageSong = () => {
-  //   if (pathname.includes("login")) navigateTo.ManageSong();
-  // };
+  // ถ้าไปหน้าที่มีคำว่า login จะไปหน้า Overview
+  const redirectToBlog = () => {
+    if (pathname.includes("login")) navigateTo.Blog();
+  };
 
-  // const childrenWithNav = <>{children}</>;
+  const childrenWithNav = <>{children}</>;
 
   return (
     <AuthContext.Provider
@@ -186,14 +187,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         userProfile,
       }}
     >
-      {/* {isLoading ? (
+      {isLoading ? (
         <Loading label={loadingLabel} />
       ) : accessToken && userExist ? (
         childrenWithNav
       ) : (
         children
-      )} */}
-      {children}
+      )}
     </AuthContext.Provider>
   );
 };

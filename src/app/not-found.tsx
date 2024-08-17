@@ -12,21 +12,20 @@ const NotFound = ({}: Props) => {
   const navigateTo = useNavigate();
   const auth = useAuth();
   const { userProfile } = auth;
-  console.log("userProfile:", userProfile);
 
-  // const isUserAuthenticated = useCallback(async () => {
-  //   if ((await getAccessToken()) && userProfile) {
-  //     navigateTo.ManageSong();
-  //   } else {
-  //     navigateTo.ManageSong();
-  //   }
-  // }, [navigateTo, userProfile]);
+  const isUserAuthenticated = useCallback(async () => {
+    if ((await getAccessToken()) && userProfile) {
+      navigateTo.Blog();
+    } else {
+      navigateTo.Blog();
+    }
+  }, [navigateTo, userProfile]);
 
-  // useEffect(() => {
-  //   if (userProfile !== undefined) {
-  //     isUserAuthenticated();
-  //   }
-  // }, [userProfile, isUserAuthenticated]);
+  useEffect(() => {
+    if (userProfile !== undefined) {
+      isUserAuthenticated();
+    }
+  }, [userProfile, isUserAuthenticated]);
 
   return <Loading />;
 };

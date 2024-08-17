@@ -81,12 +81,12 @@ export default function UsersTable({}: Props) {
   };
 
   const handleEdit = (id: any) => {
-    navigation.ManageUserEdit(id);
+    navigation.UserEdit(id);
   };
 
   const columns = [
     {
-      title: "ลำดับ",
+      title: "#",
       dataIndex: "index",
       key: "index",
       align: "center" as const,
@@ -96,25 +96,25 @@ export default function UsersTable({}: Props) {
       },
     },
     {
-      title: "ชื่อ-นามสกุล",
+      title: "Fullname",
       dataIndex: "fullname",
       key: "fullname",
       align: "center" as const,
     },
     {
-      title: "ระดับการใช้งาน",
+      title: "Permission",
       dataIndex: "admin_permission",
       key: "admin_permission",
       align: "center" as const,
     },
     {
-      title: "สถานะบัญชี",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       align: "center" as const,
     },
     {
-      title: "จัดการ",
+      title: "Manage",
       key: "action",
       align: "center" as const,
       render: (text: any, record: any, key: any) => (
@@ -229,7 +229,7 @@ export default function UsersTable({}: Props) {
           className={`flex sm:flex-col w-full items-center justify-between sm:items-start sm:justify-between sm:pt-4 sm:gap-2 gap-4`}
         >
           <Input
-            placeholder="ค้นหาบัญชีผู้ใช้งาน"
+            placeholder="Search user account" 
             suffix={<IoSearch style={{ color: "rgba(0,0,0,.45)" }} />}
             onChange={(e) => onSearchChange(e.target.value)}
             className="!h-min p-2 w-[200px] sm:w-full rounded-lg flex gap-2 items-center"
@@ -238,9 +238,9 @@ export default function UsersTable({}: Props) {
             <Button
               type="primary"
               className="!h-min p-2 rounded-lg flex text-white items-center"
-              onClick={() => navigation.ManageUserCreate()}
+              onClick={() => navigation.UserCreate()}
             >
-              + เพิ่มบัญชีผู้ใช้งาน
+              + Create User
             </Button>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default function UsersTable({}: Props) {
             loading={loading}
             dataSource={FilteredData}
             rowKey={"id"}
-            locale={{ emptyText: "ไม่พบข้อมูล" }}
+            locale={{ emptyText: "Data not found" }}
             pagination={{
               onChange: onPaginationChange,
               total: FilteredData?.length,
@@ -265,9 +265,9 @@ export default function UsersTable({}: Props) {
                 "100",
                 String(FilteredData?.length),
               ],
-              locale: { items_per_page: " / หน้า" },
+              locale: { items_per_page: " / Page" },
               showTotal: (total, range) =>
-                `แสดง ${range[0]}-${range[1]} จาก ${total} รายการ`,
+                `Show ${range[0]}-${range[1]} From ${total} Items`,
             }}
           />
         </div>

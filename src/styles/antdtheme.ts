@@ -2,9 +2,9 @@
 
 export const antdtheme = {
   token: {
-    colorPrimary: "#00597B",
+    colorPrimary: "#4EDFE7",
     colorInfo: "#bdbdbd",
-    colorPrimaryHover: "#00597B",
+    colorPrimaryHover: "#4EDFE7",
     fontFamily: "Noto Sans Thai, sans-serif",
     colorBorder: "#bdbdbd",
     colorTextPlaceholder: "#CACACA",
@@ -14,10 +14,7 @@ export const antdtheme = {
   },
   components: {
     Button: {
-      colorPrimary: "#00597B",
-      colorPrimaryHover: "#bdbdbd",
-      colorPrimaryActive: "#bdbdbd",
-      colorFocusBorder: "#bdbdbd",
+      colorPrimary: "#4EDFE7",
       colorFocusBg: "#4EDFE7",
     },
   },
