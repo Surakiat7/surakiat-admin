@@ -15,6 +15,7 @@ export const antdtheme = {
   components: {
     Button: {
       colorPrimary: "#4EDFE7",
+      colorFocusBg: "#4EDFE7",
     },
   },
 };
