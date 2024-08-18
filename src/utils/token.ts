@@ -10,7 +10,7 @@ export async function getAccessToken(): Promise<string | undefined> {
     const token = await Cookies.get(accessToken);
     return token;
   } catch (error) {
-    console.log(`Get accessToken error`);
+    console.log(`Get AccessToken error`);
     return undefined;
   }
 }
@@ -20,7 +20,7 @@ export async function getRefreshToken(): Promise<string | undefined> {
     const token = await Cookies.get(refreshToken);
     return token;
   } catch (error) {
-    console.log(`Get refreshToken error`);
+    console.log(`Get RefreshToken error`);
     return undefined;
   }
 }
